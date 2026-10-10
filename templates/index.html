@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clean City</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            🌱 CLEAN CITY
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="#report">Report Issue</a>
+            <a href="#map">Live Map</a>
+            <a href="#admin">Admin</a>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="tagline">
+                    SMART CIVIC ISSUE REPORTING
+                </p>
+
+                <h1>
+                    Make Your City<br>
+                    <span>Cleaner & Smarter.</span>
+                </h1>
+
+                <p class="hero-text">
+                    Report potholes, garbage, broken streetlights,
+                    water leakage and other civic problems in seconds.
+                </p>
+
+                <a href="#report" class="primary-btn">
+                    📍 Report an Issue
+                </a>
+
+            </div>
+
+            <div class="hero-card">
+
+                <div class="map-icon">
+                    🗺️
+                </div>
+
+                <h3>Live City Monitoring</h3>
+
+                <p>
+                    Track civic problems and help authorities
+                    resolve them faster.
+                </p>
+
+                <div class="status">
+                    <span class="dot"></span>
+                    System Active
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- REPORT SECTION -->
+        <section id="report" class="section">
+
+            <div class="section-heading">
+                <p class="tagline">QUICK REPORT</p>
+
+                <h2>
+                    What problem did you find?
+                </h2>
+
+                <p>
+                    Select an issue category to report a civic problem.
+                </p>
+            </div>
+
+
+            <div class="issue-grid">
+
+                <div class="issue-card">
+                    <div class="issue-icon">🕳️</div>
+                    <h3>Pothole</h3>
+                    <p>Damaged or dangerous roads</p>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-icon">💡</div>
+                    <h3>Streetlight</h3>
+                    <p>Broken or non-working lights</p>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-icon">🗑️</div>
+                    <h3>Garbage</h3>
+                    <p>Waste dumping and garbage</p>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-icon">🚰</div>
+                    <h3>Water Leakage</h3>
+                    <p>Water pipeline problems</p>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-icon">🚧</div>
+                    <h3>Damaged Road</h3>
+                    <p>Road damage and hazards</p>
+                </div>
+
+                <div class="issue-card">
+                    <div class="issue-icon">🌊</div>
+                    <h3>Waterlogging</h3>
+                    <p>Flooded streets and areas</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAP SECTION -->
+        <section id="map" class="map-section">
+
+            <div class="section-heading">
+
+                <p class="tagline">SMART CITY MAP</p>
+
+                <h2>
+                    🗺️ Live Issue Map
+                </h2>
+
+                <p>
+                    View reported civic issues across the city.
+                </p>
+
+            </div>
+
+            <div class="map-placeholder">
+
+                <div class="fake-map">
+
+                    <span class="marker marker-1">📍</span>
+                    <span class="marker marker-2">📍</span>
+                    <span class="marker marker-3">📍</span>
+                    <span class="marker marker-4">📍</span>
+
+                    <div class="map-message">
+                        <div>🗺️</div>
+                        <h3>Live Map Coming Soon</h3>
+                        <p>
+                            GPS-based issue mapping will appear here.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADMIN SECTION -->
+        <section id="admin" class="section">
+
+            <div class="section-heading">
+
+                <p class="tagline">ADMINISTRATION</p>
+
+                <h2>
+                    📊 City Dashboard
+                </h2>
+
+                <p>
+                    Monitor and manage civic complaints.
+                </p>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>📋</span>
+                    <h3>0</h3>
+                    <p>Total Issues</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>⏳</span>
+                    <h3>0</h3>
+                    <p>Pending</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>🔧</span>
+                    <h3>0</h3>
+                    <p>In Progress</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>✅</span>
+                    <h3>0</h3>
+                    <p>Resolved</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <h3>🌱 CLEAN CITY</h3>
+
+        <p>
+            Technology for a cleaner, smarter and better city.
+        </p>
+
+        <p class="copyright">
+            © 2026 Clean City
+        </p>
+
+    </footer>
+
+</body>
+</html>
