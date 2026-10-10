@@ -1,0 +1,470 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7faf8;
+    color: #17251d;
+}
+
+
+/* NAVBAR */
+
+.navbar {
+    height: 75px;
+    padding: 0 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: white;
+    border-bottom: 1px solid #e6ece8;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #334238;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.navbar a:hover {
+    color: #1f8f55;
+}
+
+
+/* HERO */
+
+.hero {
+    min-height: 570px;
+
+    padding: 80px 8%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef9f1,
+            #ffffff
+        );
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.tagline {
+    color: #218c52;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    line-height: 1.05;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: #218c52;
+}
+
+.hero-text {
+    color: #617067;
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 570px;
+    margin-bottom: 35px;
+}
+
+.primary-btn {
+    display: inline-block;
+
+    padding: 15px 26px;
+
+    background: #218c52;
+    color: white;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+    font-weight: 700;
+
+    box-shadow: 0 8px 25px rgba(33, 140, 82, 0.2);
+}
+
+.primary-btn:hover {
+    background: #176e3e;
+}
+
+
+/* HERO CARD */
+
+.hero-card {
+    width: 330px;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    box-shadow: 0 20px 50px rgba(32, 70, 48, 0.12);
+
+    text-align: center;
+}
+
+.map-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.hero-card h3 {
+    margin-bottom: 12px;
+}
+
+.hero-card p {
+    color: #68756d;
+    line-height: 1.6;
+}
+
+.status {
+    margin-top: 25px;
+
+    padding: 10px;
+
+    background: #eef9f1;
+
+    border-radius: 8px;
+
+    color: #218c52;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dot {
+    display: inline-block;
+
+    width: 8px;
+    height: 8px;
+
+    margin-right: 6px;
+
+    background: #2bb673;
+
+    border-radius: 50%;
+}
+
+
+/* SECTIONS */
+
+.section {
+    padding: 90px 8%;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-heading h2 {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.section-heading p:last-child {
+    color: #68756d;
+}
+
+
+/* ISSUE CARDS */
+
+.issue-grid {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.issue-card {
+    padding: 30px;
+
+    background: white;
+
+    border: 1px solid #e7eee9;
+
+    border-radius: 16px;
+
+    transition: 0.25s;
+
+    cursor: pointer;
+}
+
+.issue-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(33, 80, 50, 0.1);
+
+    border-color: #9ed4b5;
+}
+
+.issue-icon {
+    font-size: 40px;
+    margin-bottom: 18px;
+}
+
+.issue-card h3 {
+    margin-bottom: 8px;
+}
+
+.issue-card p {
+    color: #748077;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* MAP */
+
+.map-section {
+    padding: 90px 8%;
+
+    background: #edf6ef;
+}
+
+.map-placeholder {
+    max-width: 1100px;
+    height: 450px;
+
+    margin: auto;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px rgba(30, 70, 45, 0.1);
+}
+
+.fake-map {
+    height: 100%;
+
+    position: relative;
+
+    background:
+        linear-gradient(25deg, transparent 45%, #d4e3d7 46%, #d4e3d7 48%, transparent 49%),
+        linear-gradient(110deg, transparent 45%, #d4e3d7 46%, #d4e3d7 48%, transparent 49%),
+        #dfeee2;
+}
+
+.map-message {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+
+    background: white;
+
+    padding: 25px 35px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.map-message div {
+    font-size: 40px;
+}
+
+.map-message h3 {
+    margin: 8px 0;
+}
+
+.map-message p {
+    color: #6b786f;
+    font-size: 14px;
+}
+
+.marker {
+    position: absolute;
+    font-size: 30px;
+}
+
+.marker-1 {
+    top: 25%;
+    left: 25%;
+}
+
+.marker-2 {
+    top: 60%;
+    left: 70%;
+}
+
+.marker-3 {
+    top: 35%;
+    left: 75%;
+}
+
+.marker-4 {
+    top: 70%;
+    left: 35%;
+}
+
+
+/* ADMIN */
+
+.stats-grid {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.stat-card {
+    padding: 30px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    border: 1px solid #e6ece8;
+}
+
+.stat-card span {
+    font-size: 30px;
+}
+
+.stat-card h3 {
+    font-size: 35px;
+    margin: 12px 0 5px;
+}
+
+.stat-card p {
+    color: #748077;
+}
+
+
+/* FOOTER */
+
+footer {
+    padding: 45px 8%;
+
+    background: #17251d;
+
+    color: white;
+
+    text-align: center;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #b7c4bb;
+}
+
+.copyright {
+    margin-top: 20px;
+
+    font-size: 12px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .navbar nav {
+        display: none;
+    }
+
+    .hero {
+        padding: 60px 6%;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .issue-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .issue-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2 {
+        font-size: 30px;
+    }
+}
