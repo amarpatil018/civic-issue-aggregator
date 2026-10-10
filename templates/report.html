@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report an Issue | Clean City</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .report-page {
+            min-height: calc(100vh - 75px);
+            padding: 70px 8%;
+            background: #f7faf8;
+        }
+
+        .report-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .report-header h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .report-header p {
+            color: #68756d;
+        }
+
+        .report-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #e5ece7;
+            box-shadow: 0 15px 40px rgba(30, 70, 45, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .required {
+            color: #d94848;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .category-option {
+            position: relative;
+        }
+
+        .category-option input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .category-option label {
+            display: block;
+            padding: 18px 10px;
+            text-align: center;
+            border: 2px solid #e5ece7;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .category-option label:hover {
+            border-color: #9ed4b5;
+        }
+
+        .category-option input:checked + label {
+            border-color: #218c52;
+            background: #eef9f1;
+            color: #218c52;
+        }
+
+        .category-icon {
+            display: block;
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        textarea,
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dce5df;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            border-color: #218c52;
+        }
+
+        .location-box {
+            padding: 20px;
+            background: #f2f8f4;
+            border-radius: 12px;
+            border: 1px solid #dcebe1;
+        }
+
+        .location-status {
+            margin-bottom: 15px;
+            color: #617067;
+            font-size: 14px;
+        }
+
+        .location-btn {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #218c52;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .location-btn:hover {
+            background: #176e3e;
+        }
+
+        .coordinates {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .coordinate {
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .coordinate span {
+            display: block;
+            color: #748077;
+            margin-bottom: 4px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #218c52;
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #176e3e;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #218c52;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 700px) {
+
+            .category-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .report-form {
+                padding: 25px;
+            }
+
+            .report-header h1 {
+                font-size: 34px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coordinates {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🌱 CLEAN CITY
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+            <a href="/#map">Live Map</a>
+
+            <a href="/#admin">Admin</a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- REPORT PAGE -->
+
+    <main class="report-page">
+
+        <div class="report-container">
+
+            <div class="report-header">
+
+                <p class="tagline">
+                    CIVIC ISSUE REPORTING
+                </p>
+
+                <h1>
+                    📍 Report an Issue
+                </h1>
+
+                <p>
+                    Help make your city cleaner, safer and smarter.
+                </p>
+
+            </div>
+
+
+            <form class="report-form"
+                  action="/submit-report"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label>
+                        What is the problem?
+                        <span class="required">*</span>
+                    </label>
+
+
+                    <div class="category-grid">
+
+
+                        <div class="category-option">
+
+                            <input
+                                type="radio"
+                                id="pothole"
+                                name="category"
+                                value="Pothole"
+                                required
+                            >
+
+                            <label for="pothole">
+
+                                <span class="category-icon">
+                                    🕳️
+                                </span>
+
+                                Pothole
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="category-option">
+
+                            <input
+                                type="radio"
+                                id="streetlight"
+                                name="category"
+                                value="Streetlight"
+                            >
+
+                            <label for="streetlight">
+
+                                <span class="category-icon">
+                                    💡
+                                </span>
+
+                                Streetlight
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="category-option">
+
+                            <input
+                                type="radio"
+                                id="garbage"
+                                name="category"
+                                value="Garbage"
+                            >
+
+                            <label for="garbage">
+
+                                <span class="category-icon">
+                                    🗑️
+                                </span>
+
+                                Garbage
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="category-option">
+
+                            <input
+                                type="radio"
+                                id="water"
+                                name="category"
+                                value="Water Leakage"
+                            >
+
+                            <label for="water">
+
+                                <span class="category-icon">
+                                    🚰
+                                </span>
+
+                                Water Leakage
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="category-option">
+
+                            <input
+                                type="radio"
+                                id="road"
+                                name="category"
+                                value="Damaged Road"
+                            >
+
+                            <label for="road">
+
+                                <span class="category-icon">
+                                    🚧
+                                </span>
+
+                                Damaged Road
+
+                            </label>
+
+                        </div>
+
+
+                        <div class="category-option">
+
+                            <input
+                                type="radio"
+                                id="waterlogging"
+                                name="category"
+                                value="Waterlogging"
+                            >
+
+                            <label for="waterlogging">
+
+                                <span class="category-icon">
+                                    🌊
+                                </span>
+
+                                Waterlogging
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+
+                        Describe the problem
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Example: Large pothole near the main entrance of the college..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- PHOTO -->
+
+                <div class="form-group">
+
+                    <label for="photo">
+
+                        📷 Upload Photo
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="photo"
+                        name="photo"
+                        accept="image/*"
+                    >
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        📍 Location
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <div class="location-box">
+
+                        <div class="location-status"
+                             id="locationStatus">
+
+                            Location has not been detected yet.
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="location-btn"
+                            onclick="getLocation()"
+                        >
+
+                            📍 Detect My Location
+
+                        </button>
+
+
+                        <div class="coordinates">
+
+                            <div class="coordinate">
+
+                                <span>
+                                    Latitude
+                                </span>
+
+                                <strong id="latitudeDisplay">
+                                    Not detected
+                                </strong>
+
+                            </div>
+
+
+                            <div class="coordinate">
+
+                                <span>
+                                    Longitude
+                                </span>
+
+                                <strong id="longitudeDisplay">
+                                    Not detected
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <input
+                        type="hidden"
+                        id="latitude"
+                        name="latitude"
+                    >
+
+                    <input
+                        type="hidden"
+                        id="longitude"
+                        name="longitude"
+                    >
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+
+                    🚀 Submit Complaint
+
+                </button>
+
+
+                <a href="/" class="back-link">
+                    ← Back to Home
+                </a>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- LOCATION JAVASCRIPT -->
+
+    <script>
+
+        function getLocation() {
+
+            const status =
+                document.getElementById("locationStatus");
+
+            const latitude =
+                document.getElementById("latitude");
+
+            const longitude =
+                document.getElementById("longitude");
+
+            const latitudeDisplay =
+                document.getElementById("latitudeDisplay");
+
+            const longitudeDisplay =
+                document.getElementById("longitudeDisplay");
+
+
+            if (!navigator.geolocation) {
+
+                status.innerText =
+                    "Geolocation is not supported by your browser.";
+
+                return;
+
+            }
+
+
+            status.innerText =
+                "📡 Detecting your location...";
+
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position) {
+
+                    const lat =
+                        position.coords.latitude;
+
+                    const lon =
+                        position.coords.longitude;
+
+
+                    latitude.value = lat;
+                    longitude.value = lon;
+
+
+                    latitudeDisplay.innerText =
+                        lat.toFixed(6);
+
+                    longitudeDisplay.innerText =
+                        lon.toFixed(6);
+
+
+                    status.innerText =
+                        "✅ Location detected successfully.";
+
+                },
+
+
+                function(error) {
+
+                    if (error.code === 1) {
+
+                        status.innerText =
+                            "❌ Location permission was denied. Please allow location access.";
+
+                    } else {
+
+                        status.innerText =
+                            "❌ Unable to detect your location. Please try again.";
+
+                    }
+
+                }
+
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
