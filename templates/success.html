@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Complaint Submitted | Clean City</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .success-page {
+
+            min-height: calc(100vh - 75px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 40px;
+
+            background: #f7faf8;
+
+        }
+
+        .success-card {
+
+            width: 100%;
+
+            max-width: 550px;
+
+            padding: 45px;
+
+            background: white;
+
+            border-radius: 22px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 50px rgba(30, 70, 45, 0.12);
+
+        }
+
+        .success-icon {
+
+            width: 85px;
+
+            height: 85px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #e9f8ee;
+
+            font-size: 42px;
+
+        }
+
+        .success-card h1 {
+
+            margin-top: 25px;
+
+            margin-bottom: 12px;
+
+        }
+
+        .success-card > p {
+
+            color: #68756d;
+
+            line-height: 1.6;
+
+        }
+
+        .issue-id {
+
+            margin: 25px 0;
+
+            padding: 18px;
+
+            background: #f1f8f3;
+
+            border-radius: 12px;
+
+        }
+
+        .issue-id span {
+
+            display: block;
+
+            color: #748077;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+
+        }
+
+        .issue-id strong {
+
+            font-size: 25px;
+
+            color: #218c52;
+
+        }
+
+        .details {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background: #fafcfb;
+
+            border-radius: 12px;
+
+            text-align: left;
+
+        }
+
+        .details p {
+
+            margin: 8px 0;
+
+            font-size: 14px;
+
+        }
+
+        .details strong {
+
+            color: #25352b;
+
+        }
+
+        .success-btn {
+
+            display: block;
+
+            margin-top: 25px;
+
+            padding: 14px;
+
+            background: #218c52;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+
+        }
+
+        .success-btn:hover {
+
+            background: #176e3e;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            🌱 CLEAN CITY
+        </div>
+
+        <nav>
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/report">
+                Report Issue
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="success-page">
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✅
+            </div>
+
+            <h1>
+                Complaint Submitted!
+            </h1>
+
+            <p>
+                Thank you for helping make your city
+                cleaner, safer and smarter.
+            </p>
+
+
+            <div class="issue-id">
+
+                <span>
+                    Complaint ID
+                </span>
+
+                <strong>
+                    #{{ issue_id }}
+                </strong>
+
+            </div>
+
+
+            <div class="details">
+
+                <p>
+                    <strong>Issue:</strong>
+                    {{ category }}
+                </p>
+
+                <p>
+                    <strong>Department:</strong>
+                    {{ department }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    Pending
+                </p>
+
+            </div>
+
+
+            <a href="/" class="success-btn">
+                🏠 Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html> 
