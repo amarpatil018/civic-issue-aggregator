@@ -4,362 +4,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean City - Admin Dashboard</title>
+    <title>Clean City | Smart Civic Management</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background: #f4f8f5;
-            color: #263b30;
-        }
-
-        .admin-page {
-            min-height: 100vh;
-            padding: 35px 5%;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .admin-header h1 {
-            color: #173b2a;
-            font-size: 30px;
-        }
-
-        .admin-header p {
-            color: #718078;
-            margin-top: 7px;
-        }
-
-        .home-btn {
-            background: #173b2a;
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-        }
-
-        .home-btn:hover {
-            background: #286344;
-        }
-
-        .dashboard-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 35px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-            border-left: 5px solid #25834d;
-        }
-
-        .stat-card h3 {
-            color: #78867e;
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .stat-card h2 {
-            font-size: 30px;
-            color: #173b2a;
-        }
-
-        .complaints-section {
-            background: white;
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-        }
-
-        .complaints-section h2 {
-            margin-bottom: 20px;
-            color: #173b2a;
-        }
-
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 950px;
-        }
-
-        th, td {
-            padding: 15px 12px;
-            text-align: left;
-            border-bottom: 1px solid #e8eee9;
-            font-size: 14px;
-            vertical-align: middle;
-        }
-
-        th {
-            background: #edf5ef;
-            color: #24583a;
-        }
-
-        td {
-            color: #52645a;
-        }
-
-        .status {
-            padding: 6px 11px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .pending {
-            background: #fff2cc;
-            color: #936600;
-        }
-
-        .in-progress {
-            background: #dceeff;
-            color: #1761a0;
-        }
-
-        .resolved {
-            background: #d9f5e2;
-            color: #18743b;
-        }
-
-        select {
-            padding: 8px;
-            border: 1px solid #ccd8ce;
-            border-radius: 6px;
-            background: white;
-        }
-
-        .update-btn {
-            padding: 8px 12px;
-            background: #1d7543;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .update-btn:hover {
-            background: #145631;
-        }
-
-        .photo-link, .location-link {
-            color: #176a40;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .empty-message {
-            text-align: center;
-            padding: 35px;
-            color: #78867e;
-        }
-
-        @media(max-width: 900px) {
-            .dashboard-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media(max-width: 550px) {
-            .dashboard-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .admin-header h1 {
-                font-size: 24px;
-            }
-
-            .complaints-section {
-                padding: 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-<div class="admin-page">
-
-    <header class="admin-header">
-        <div>
-            <h1>Clean City Admin Dashboard</h1>
-            <p>Manage and monitor citizen complaints</p>
+    <!-- NAVIGATION BAR -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🌿</span>
+            <span>CLEAN CITY</span>
         </div>
 
-        <a href="/" class="home-btn">← Back to Home</a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="#about">About</a>
+            <a href="#categories">Categories</a>
+            <a href="/admin">Admin</a>
+        </nav>
+
+        <a href="/report" class="nav-btn">Report Issue</a>
     </header>
 
-    <!-- Dashboard Statistics -->
 
-    <section class="dashboard-stats">
+    <!-- HERO SECTION -->
+    <section class="hero">
 
-        <div class="stat-card">
-            <h3>Total Complaints</h3>
-            <h2>{{ total }}</h2>
+        <div class="hero-content">
+            <span class="hero-tag">SMART CITY • CLEAN FUTURE</span>
+
+            <h1>
+                Make Your City<br>
+                <span>Cleaner & Smarter.</span>
+            </h1>
+
+            <p>
+                Together, let's make Kalaburagi a cleaner,
+                safer and better place to live. Report civic
+                problems and help us improve our city.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="/report" class="primary-btn">
+                    📍 Report an Issue
+                </a>
+
+                <a href="#about" class="secondary-btn">
+                    Learn More →
+                </a>
+            </div>
+
+            <div class="hero-note">
+                ✓ Easy Reporting &nbsp; ✓ GPS Location
+                &nbsp; ✓ Track Complaints
+            </div>
         </div>
 
-        <div class="stat-card">
-            <h3>Pending</h3>
-            <h2>{{ pending }}</h2>
-        </div>
-
-        <div class="stat-card">
-            <h3>In Progress</h3>
-            <h2>{{ in_progress }}</h2>
-        </div>
-
-        <div class="stat-card">
-            <h3>Resolved</h3>
-            <h2>{{ resolved }}</h2>
-        </div>
-
-    </section>
-
-    <!-- Complaints Table -->
-
-    <section class="complaints-section">
-
-        <h2>Citizen Complaints</h2>
-
-        <div class="table-container">
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Photo</th>
-                        <th>Location</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Update Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                {% for issue in issues %}
-
-                    <tr>
-                        <td>#{{ issue['id'] }}</td>
-
-                        <td>{{ issue['category'] }}</td>
-
-                        <td>{{ issue['description'] }}</td>
-
-                        <td>
-                            {% if issue['photo'] %}
-                                <a class="photo-link"
-                                   href="{{ url_for('static', filename='uploads/' + issue['photo']) }}"
-                                   target="_blank">
-                                    View Photo
-                                </a>
-                            {% else %}
-                                No Photo
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {% if issue['latitude'] and issue['longitude'] %}
-                                <a class="location-link"
-                                   href="https://www.google.com/maps?q={{ issue['latitude'] }},{{ issue['longitude'] }}"
-                                   target="_blank">
-                                    View Map
-                                </a>
-                            {% else %}
-                                Not Available
-                            {% endif %}
-                        </td>
-
-                        <td>{{ issue['department'] or 'Not Assigned' }}</td>
-
-                        <td>
-                            {% if issue['status'] == 'Pending' %}
-                                <span class="status pending">Pending</span>
-                            {% elif issue['status'] == 'In Progress' %}
-                                <span class="status in-progress">In Progress</span>
-                            {% elif issue['status'] == 'Resolved' %}
-                                <span class="status resolved">Resolved</span>
-                            {% else %}
-                                {{ issue['status'] }}
-                            {% endif %}
-                        </td>
-
-                        <td>{{ issue['created_at'] }}</td>
-
-                        <td>
-                            <form
-                                action="{{ url_for('update_status', issue_id=issue['id']) }}"
-                                method="POST">
-
-                                <select name="status" required>
-                                    <option value="Pending"
-                                        {% if issue['status'] == 'Pending' %}selected{% endif %}>
-                                        Pending
-                                    </option>
-
-                                    <option value="In Progress"
-                                        {% if issue['status'] == 'In Progress' %}selected{% endif %}>
-                                        In Progress
-                                    </option>
-
-                                    <option value="Resolved"
-                                        {% if issue['status'] == 'Resolved' %}selected{% endif %}>
-                                        Resolved
-                                    </option>
-                                </select>
-
-                                <button type="submit" class="update-btn">
-                                    Update
-                                </button>
-
-                            </form>
-                        </td>
-                    </tr>
-
-                {% else %}
-
-                    <tr>
-                        <td colspan="9" class="empty-message">
-                            No complaints have been submitted yet.
-                        </td>
-                    </tr>
-
-                {% endfor %}
-
-                </tbody>
-            </table>
-
+        <div class="hero-visual">
+            <div class="visual-circle">
+                <div class="city-emoji">🏙️</div>
+                <div class="floating-icon icon-one">🌳</div>
+                <div class="floating-icon icon-two">♻️</div>
+                <div class="floating-icon icon-three">💧</div>
+                <div class="floating-icon icon-four">🌱</div>
+            </div>
         </div>
 
     </section>
 
-</div>
+
+    <!-- QUICK INFORMATION -->
+    <section class="info-section">
+
+        <div class="info-card">
+            <div class="info-icon">📍</div>
+            <h3>Location Based</h3>
+            <p>Report issues with GPS location.</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">📸</div>
+            <h3>Photo Upload</h3>
+            <p>Attach photos of civic problems.</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">⚡</div>
+            <h3>Quick Reporting</h3>
+            <p>Submit complaints in just a few steps.</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">📊</div>
+            <h3>Live Monitoring</h3>
+            <p>View complaints through the admin dashboard.</p>
+        </div>
+
+    </section>
+
+
+    <!-- ISSUE CATEGORIES -->
+    <section class="categories-section" id="categories">
+
+        <div class="section-heading">
+            <span>REPORT A PROBLEM</span>
+            <h2>What needs to be fixed?</h2>
+            <p>Select an issue category and help improve your neighbourhood.</p>
+        </div>
+
+        <div class="category-grid">
+
+            <div class="category-card">
+                <div class="category-icon">🛣️</div>
+                <h3>Pothole</h3>
+                <p>Report damaged roads and potholes.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">💡</div>
+                <h3>Streetlight</h3>
+                <p>Report broken or non-working streetlights.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">🗑️</div>
+                <h3>Garbage</h3>
+                <p>Report garbage dumping and waste problems.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">💧</div>
+                <h3>Water Leakage</h3>
+                <p>Report leaking water pipes and wastage.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">🚧</div>
+                <h3>Damaged Road</h3>
+                <p>Report damaged roads and unsafe areas.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">🌧️</div>
+                <h3>Waterlogging</h3>
+                <p>Report water accumulation in public places.</p>
+            </div>
+
+        </div>
+
+        <div class="category-action">
+            <a href="/report" class="primary-btn">
+                Submit a Complaint →
+            </a>
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+
+        <div class="about-content">
+            <span>ABOUT CLEAN CITY</span>
+
+            <h2>Small Actions.<br>Big Changes.</h2>
+
+            <p>
+                Clean City is a smart civic issue reporting
+                platform designed to connect citizens and
+                city administration.
+
+                Citizens can report public problems, upload
+                photographs and share their location.
+                Administrators can monitor complaints and
+                manage their progress through a dashboard.
+            </p>
+
+            <a href="/report" class="primary-btn">
+                Be a Responsible Citizen →
+            </a>
+        </div>
+
+        <div class="about-visual">
+            <div class="about-emoji">🌍</div>
+            <h3>Let's Build a Better Kalaburagi</h3>
+            <p>Clean surroundings begin with responsible citizens.</p>
+        </div>
+
+    </section>
+
+
+    <!-- CALL TO ACTION -->
+    <section class="cta-section">
+        <h2>See a problem in your area?</h2>
+        <p>Don't ignore it. Report it and help make a difference.</p>
+
+        <a href="/report" class="cta-btn">
+            Report an Issue Now →
+        </a>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">🌿 CLEAN CITY</div>
+
+        <p>Smart Civic Issue Management System</p>
+        <p>Made for a cleaner and smarter Kalaburagi.</p>
+
+        <div class="footer-bottom">
+            © 2026 Clean City. All Rights Reserved.
+        </div>
+    </footer>
 
 </body>
 </html>
