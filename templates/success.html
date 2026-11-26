@@ -1,266 +1,105 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Complaint Submitted | Clean City</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
-    <style>
-
-        .success-page {
-
-            min-height: calc(100vh - 75px);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 40px;
-
-            background: #f7faf8;
-
-        }
-
-        .success-card {
-
-            width: 100%;
-
-            max-width: 550px;
-
-            padding: 45px;
-
-            background: white;
-
-            border-radius: 22px;
-
-            text-align: center;
-
-            box-shadow:
-                0 20px 50px rgba(30, 70, 45, 0.12);
-
-        }
-
-        .success-icon {
-
-            width: 85px;
-
-            height: 85px;
-
-            margin: auto;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #e9f8ee;
-
-            font-size: 42px;
-
-        }
-
-        .success-card h1 {
-
-            margin-top: 25px;
-
-            margin-bottom: 12px;
-
-        }
-
-        .success-card > p {
-
-            color: #68756d;
-
-            line-height: 1.6;
-
-        }
-
-        .issue-id {
-
-            margin: 25px 0;
-
-            padding: 18px;
-
-            background: #f1f8f3;
-
-            border-radius: 12px;
-
-        }
-
-        .issue-id span {
-
-            display: block;
-
-            color: #748077;
-
-            font-size: 13px;
-
-            margin-bottom: 5px;
-
-        }
-
-        .issue-id strong {
-
-            font-size: 25px;
-
-            color: #218c52;
-
-        }
-
-        .details {
-
-            margin-top: 20px;
-
-            padding: 18px;
-
-            background: #fafcfb;
-
-            border-radius: 12px;
-
-            text-align: left;
-
-        }
-
-        .details p {
-
-            margin: 8px 0;
-
-            font-size: 14px;
-
-        }
-
-        .details strong {
-
-            color: #25352b;
-
-        }
-
-        .success-btn {
-
-            display: block;
-
-            margin-top: 25px;
-
-            padding: 14px;
-
-            background: #218c52;
-
-            color: white;
-
-            text-decoration: none;
-
-            border-radius: 10px;
-
-            font-weight: 700;
-
-        }
-
-        .success-btn:hover {
-
-            background: #176e3e;
-
-        }
-
-    </style>
-
 </head>
-
 
 <body>
 
+    <!-- NAVBAR -->
     <header class="navbar">
-
         <div class="logo">
-            🌱 CLEAN CITY
+            <span class="logo-icon">🌿</span>
+            <span>CLEAN CITY</span>
         </div>
 
         <nav>
-
-            <a href="/">
-                Home
-            </a>
-
-            <a href="/report">
-                Report Issue
-            </a>
-
+            <a href="/">Home</a>
+            <a href="/admin">Admin</a>
         </nav>
 
+        <a href="/report" class="nav-btn">Report Another Issue</a>
     </header>
 
 
+    <!-- SUCCESS CONTENT -->
     <main class="success-page">
 
         <div class="success-card">
 
-            <div class="success-icon">
-                ✅
-            </div>
+            <div class="success-icon">✓</div>
 
-            <h1>
-                Complaint Submitted!
-            </h1>
+            <span class="success-label">SUBMISSION SUCCESSFUL</span>
 
-            <p>
-                Thank you for helping make your city
-                cleaner, safer and smarter.
+            <h1>Your Complaint Has Been Submitted!</h1>
+
+            <p class="success-description">
+                Thank you for being a responsible citizen.
+                Your complaint has been recorded successfully.
+                Together, we can make Kalaburagi cleaner and better.
             </p>
 
+            <div class="success-details">
 
-            <div class="issue-id">
+                <div class="success-detail-row">
+                    <span>Complaint ID</span>
+                    <strong>#{{ issue_id }}</strong>
+                </div>
 
-                <span>
-                    Complaint ID
-                </span>
+                <div class="success-detail-row">
+                    <span>Category</span>
+                    <strong>{{ category }}</strong>
+                </div>
 
-                <strong>
-                    #{{ issue_id }}
-                </strong>
+                <div class="success-detail-row">
+                    <span>Assigned Department</span>
+                    <strong>{{ department }}</strong>
+                </div>
 
-            </div>
-
-
-            <div class="details">
-
-                <p>
-                    <strong>Issue:</strong>
-                    {{ category }}
-                </p>
-
-                <p>
-                    <strong>Department:</strong>
-                    {{ department }}
-                </p>
-
-                <p>
-                    <strong>Status:</strong>
-                    Pending
-                </p>
+                <div class="success-detail-row">
+                    <span>Status</span>
+                    <strong class="pending-status">● Pending</strong>
+                </div>
 
             </div>
 
+            <div class="success-actions">
 
-            <a href="/" class="success-btn">
-                🏠 Back to Home
-            </a>
+                <a href="/" class="primary-btn">
+                    Back to Home
+                </a>
+
+                <a href="/report" class="secondary-btn">
+                    Report Another Issue
+                </a>
+
+            </div>
+
+            <p class="success-thankyou">
+                🌱 Every report is a step towards a cleaner city.
+            </p>
 
         </div>
 
     </main>
 
-</body>
 
-</html> 
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">🌿 CLEAN CITY</div>
+        <p>Smart Civic Issue Management System</p>
+
+        <div class="footer-bottom">
+            © 2026 Clean City. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
