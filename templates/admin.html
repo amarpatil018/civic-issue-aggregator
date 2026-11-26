@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean City | Smart Civic Management</title>
+
+    <title>Clean City | Admin Dashboard</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Leaflet map CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 
-<body>
+<body class="admin-body">
 
-    <!-- NAVIGATION BAR -->
+    <!-- NAVBAR -->
     <header class="navbar">
         <div class="logo">
             <span class="logo-icon">🌿</span>
@@ -21,204 +26,409 @@
 
         <nav>
             <a href="/">Home</a>
-            <a href="#about">About</a>
-            <a href="#categories">Categories</a>
-            <a href="/admin">Admin</a>
+            <a href="/report">Report Issue</a>
         </nav>
 
-        <a href="/report" class="nav-btn">Report Issue</a>
+        <span class="admin-label">ADMIN PANEL</span>
     </header>
 
 
-    <!-- HERO SECTION -->
-    <section class="hero">
+    <main class="admin-page">
 
-        <div class="hero-content">
-            <span class="hero-tag">SMART CITY • CLEAN FUTURE</span>
+        <!-- PAGE HEADING -->
+        <div class="admin-header">
+            <div>
+                <span class="admin-eyebrow">CITY MANAGEMENT</span>
+                <h1>Admin Dashboard</h1>
+                <p>Monitor and manage civic complaints in Kalaburagi.</p>
+            </div>
 
-            <h1>
-                Make Your City<br>
-                <span>Cleaner & Smarter.</span>
-            </h1>
+            <a href="/" class="admin-home-btn">← Back to Home</a>
+        </div>
 
-            <p>
-                Together, let's make Kalaburagi a cleaner,
-                safer and better place to live. Report civic
-                problems and help us improve our city.
+
+        <!-- STATISTICS -->
+        <section class="dashboard-stats">
+
+            <div class="stat-card">
+                <div class="stat-icon total-icon">📋</div>
+                <div>
+                    <p>Total Complaints</p>
+                    <h2>{{ total }}</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon pending-icon">⏳</div>
+                <div>
+                    <p>Pending</p>
+                    <h2>{{ pending }}</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon progress-icon">🔄</div>
+                <div>
+                    <p>In Progress</p>
+                    <h2>{{ in_progress }}</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon resolved-icon">✓</div>
+                <div>
+                    <p>Resolved</p>
+                    <h2>{{ resolved }}</h2>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- MAP SECTION -->
+        <section class="admin-panel map-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="admin-eyebrow">LIVE LOCATION TRACKING</span>
+                    <h2>Kalaburagi Complaint Map</h2>
+                    <p>View reported civic issues across the city.</p>
+                </div>
+
+                <button type="button" class="refresh-btn"
+                        onclick="loadIssues()">
+                    ↻ Refresh Map
+                </button>
+            </div>
+
+            <div id="map"></div>
+
+            <p id="map-message" class="map-message">
+                Loading complaint locations...
             </p>
 
-            <div class="hero-buttons">
-                <a href="/report" class="primary-btn">
-                    📍 Report an Issue
-                </a>
-
-                <a href="#about" class="secondary-btn">
-                    Learn More →
-                </a>
+            <div class="map-legend">
+                <span><i class="legend-dot pothole-dot"></i> Road issues</span>
+                <span><i class="legend-dot garbage-dot"></i> Garbage</span>
+                <span><i class="legend-dot light-dot"></i> Streetlight</span>
+                <span><i class="legend-dot water-dot"></i> Water issues</span>
+                <span><i class="legend-dot other-dot"></i> Other issues</span>
             </div>
 
-            <div class="hero-note">
-                ✓ Easy Reporting &nbsp; ✓ GPS Location
-                &nbsp; ✓ Track Complaints
-            </div>
-        </div>
-
-        <div class="hero-visual">
-            <div class="visual-circle">
-                <div class="city-emoji">🏙️</div>
-                <div class="floating-icon icon-one">🌳</div>
-                <div class="floating-icon icon-two">♻️</div>
-                <div class="floating-icon icon-three">💧</div>
-                <div class="floating-icon icon-four">🌱</div>
-            </div>
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- QUICK INFORMATION -->
-    <section class="info-section">
+        <!-- COMPLAINT TABLE -->
+        <section class="admin-panel complaints-panel">
 
-        <div class="info-card">
-            <div class="info-icon">📍</div>
-            <h3>Location Based</h3>
-            <p>Report issues with GPS location.</p>
-        </div>
-
-        <div class="info-card">
-            <div class="info-icon">📸</div>
-            <h3>Photo Upload</h3>
-            <p>Attach photos of civic problems.</p>
-        </div>
-
-        <div class="info-card">
-            <div class="info-icon">⚡</div>
-            <h3>Quick Reporting</h3>
-            <p>Submit complaints in just a few steps.</p>
-        </div>
-
-        <div class="info-card">
-            <div class="info-icon">📊</div>
-            <h3>Live Monitoring</h3>
-            <p>View complaints through the admin dashboard.</p>
-        </div>
-
-    </section>
-
-
-    <!-- ISSUE CATEGORIES -->
-    <section class="categories-section" id="categories">
-
-        <div class="section-heading">
-            <span>REPORT A PROBLEM</span>
-            <h2>What needs to be fixed?</h2>
-            <p>Select an issue category and help improve your neighbourhood.</p>
-        </div>
-
-        <div class="category-grid">
-
-            <div class="category-card">
-                <div class="category-icon">🛣️</div>
-                <h3>Pothole</h3>
-                <p>Report damaged roads and potholes.</p>
+            <div class="panel-heading">
+                <div>
+                    <span class="admin-eyebrow">CITIZEN REPORTS</span>
+                    <h2>All Complaints</h2>
+                    <p>Review reports and update their status.</p>
+                </div>
             </div>
 
-            <div class="category-card">
-                <div class="category-icon">💡</div>
-                <h3>Streetlight</h3>
-                <p>Report broken or non-working streetlights.</p>
+            {% if issues %}
+
+            <div class="table-wrapper">
+                <table class="complaints-table">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Issue</th>
+                            <th>Description</th>
+                            <th>Photo</th>
+                            <th>Location</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for issue in issues %}
+                        <tr>
+                            <td>#{{ issue.id }}</td>
+
+                            <td>
+                                <strong>{{ issue.category }}</strong>
+                            </td>
+
+                            <td class="description-cell">
+                                {{ issue.description }}
+                            </td>
+
+                            <td>
+                                {% if issue.photo %}
+                                <a href="{{ url_for('static', filename='uploads/' + issue.photo) }}"
+                                   target="_blank">
+                                    <img class="complaint-photo"
+                                         src="{{ url_for('static', filename='uploads/' + issue.photo) }}"
+                                         alt="Complaint photo">
+                                </a>
+                                {% else %}
+                                <span class="no-photo">No photo</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if issue.latitude and issue.longitude %}
+                                <a class="location-link"
+                                   href="https://www.google.com/maps?q={{ issue.latitude }},{{ issue.longitude }}"
+                                   target="_blank">
+                                    View Map ↗
+                                </a>
+                                {% else %}
+                                <span class="no-photo">Not available</span>
+                                {% endif %}
+                            </td>
+
+                            <td>{{ issue.department }}</td>
+
+                            <td>
+                                <span class="status-badge
+                                    {% if issue.status == 'Pending' %}
+                                        status-pending
+                                    {% elif issue.status == 'In Progress' %}
+                                        status-progress
+                                    {% elif issue.status == 'Resolved' %}
+                                        status-resolved
+                                    {% endif %}">
+                                    {{ issue.status }}
+                                </span>
+                            </td>
+
+                            <td>{{ issue.created_at }}</td>
+
+                            <td>
+                                <form action="{{ url_for('update_status', issue_id=issue.id) }}"
+                                      method="POST"
+                                      class="status-form">
+
+                                    <select name="status" required>
+                                        <option value="Pending"
+                                            {% if issue.status == 'Pending' %}selected{% endif %}>
+                                            Pending
+                                        </option>
+
+                                        <option value="In Progress"
+                                            {% if issue.status == 'In Progress' %}selected{% endif %}>
+                                            In Progress
+                                        </option>
+
+                                        <option value="Resolved"
+                                            {% if issue.status == 'Resolved' %}selected{% endif %}>
+                                            Resolved
+                                        </option>
+                                    </select>
+
+                                    <button type="submit">Save</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
             </div>
 
-            <div class="category-card">
-                <div class="category-icon">🗑️</div>
-                <h3>Garbage</h3>
-                <p>Report garbage dumping and waste problems.</p>
+            {% else %}
+
+            <div class="empty-state">
+                <div>📭</div>
+                <h3>No complaints yet</h3>
+                <p>New citizen complaints will appear here.</p>
             </div>
 
-            <div class="category-card">
-                <div class="category-icon">💧</div>
-                <h3>Water Leakage</h3>
-                <p>Report leaking water pipes and wastage.</p>
-            </div>
+            {% endif %}
 
-            <div class="category-card">
-                <div class="category-icon">🚧</div>
-                <h3>Damaged Road</h3>
-                <p>Report damaged roads and unsafe areas.</p>
-            </div>
+        </section>
 
-            <div class="category-card">
-                <div class="category-icon">🌧️</div>
-                <h3>Waterlogging</h3>
-                <p>Report water accumulation in public places.</p>
-            </div>
-
-        </div>
-
-        <div class="category-action">
-            <a href="/report" class="primary-btn">
-                Submit a Complaint →
-            </a>
-        </div>
-
-    </section>
-
-
-    <!-- ABOUT SECTION -->
-    <section class="about-section" id="about">
-
-        <div class="about-content">
-            <span>ABOUT CLEAN CITY</span>
-
-            <h2>Small Actions.<br>Big Changes.</h2>
-
-            <p>
-                Clean City is a smart civic issue reporting
-                platform designed to connect citizens and
-                city administration.
-
-                Citizens can report public problems, upload
-                photographs and share their location.
-                Administrators can monitor complaints and
-                manage their progress through a dashboard.
-            </p>
-
-            <a href="/report" class="primary-btn">
-                Be a Responsible Citizen →
-            </a>
-        </div>
-
-        <div class="about-visual">
-            <div class="about-emoji">🌍</div>
-            <h3>Let's Build a Better Kalaburagi</h3>
-            <p>Clean surroundings begin with responsible citizens.</p>
-        </div>
-
-    </section>
-
-
-    <!-- CALL TO ACTION -->
-    <section class="cta-section">
-        <h2>See a problem in your area?</h2>
-        <p>Don't ignore it. Report it and help make a difference.</p>
-
-        <a href="/report" class="cta-btn">
-            Report an Issue Now →
-        </a>
-    </section>
+    </main>
 
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-logo">🌿 CLEAN CITY</div>
-
         <p>Smart Civic Issue Management System</p>
-        <p>Made for a cleaner and smarter Kalaburagi.</p>
-
         <div class="footer-bottom">
             © 2026 Clean City. All Rights Reserved.
         </div>
     </footer>
+
+
+    <!-- LEAFLET MAP JAVASCRIPT -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Kalaburagi city centre
+        const cityLatitude = 17.3297;
+        const cityLongitude = 76.8343;
+
+        // Create map
+        const map = L.map("map").setView(
+            [cityLatitude, cityLongitude], 12
+        );
+
+        // OpenStreetMap tiles
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 19
+            }
+        ).addTo(map);
+
+        // Layer for complaint markers
+        const markerLayer = L.layerGroup().addTo(map);
+
+
+        // Choose marker colour by category
+        function getMarkerColor(category) {
+
+            const colors = {
+                "Pothole": "#e53935",
+                "Damaged Road": "#e53935",
+                "Garbage": "#f39c12",
+                "Streetlight": "#2878d0",
+                "Water Leakage": "#16a085",
+                "Waterlogging": "#8e44ad"
+            };
+
+            return colors[category] || "#607d8b";
+        }
+
+
+        // Load complaint locations from Flask API
+        async function loadIssues() {
+
+            const message = document.getElementById("map-message");
+
+            message.textContent = "Loading complaint locations...";
+
+            try {
+
+                const response = await fetch("/api/issues");
+
+                if (!response.ok) {
+                    throw new Error("API request failed");
+                }
+
+                const issues = await response.json();
+
+                markerLayer.clearLayers();
+
+                const validLocations = [];
+
+                issues.forEach(function(issue) {
+
+                    const lat = Number(issue.latitude);
+                    const lng = Number(issue.longitude);
+
+                    if (
+                        !Number.isFinite(lat) ||
+                        !Number.isFinite(lng) ||
+                        lat < -90 || lat > 90 ||
+                        lng < -180 || lng > 180 ||
+                        (lat === 0 && lng === 0)
+                    ) {
+                        return;
+                    }
+
+                    const color = getMarkerColor(issue.category);
+
+                    const marker = L.circleMarker([lat, lng], {
+                        radius: 9,
+                        color: color,
+                        fillColor: color,
+                        fillOpacity: 0.85,
+                        weight: 2
+                    });
+
+                    const googleMapsLink =
+                        "https://www.google.com/maps?q=" + lat + "," + lng;
+
+                    const popupContent = `
+                        <div class="map-popup">
+                            <strong>Complaint #${issue.id}</strong>
+                            <p><b>Category:</b> ${escapeHTML(issue.category)}</p>
+                            <p><b>Description:</b> ${escapeHTML(issue.description)}</p>
+                            <p><b>Status:</b> ${escapeHTML(issue.status)}</p>
+                            <p><b>Department:</b> ${escapeHTML(issue.department)}</p>
+                            <a href="${googleMapsLink}" target="_blank">
+                                Open in Google Maps
+                            </a>
+                        </div>
+                    `;
+
+                    marker.bindPopup(popupContent);
+                    marker.addTo(markerLayer);
+
+                    validLocations.push([lat, lng]);
+
+                });
+
+
+                if (validLocations.length > 0) {
+
+                    if (validLocations.length === 1) {
+                        map.setView(validLocations[0], 16);
+                    } else {
+                        map.fitBounds(
+                            L.latLngBounds(validLocations),
+                            { padding: [40, 40], maxZoom: 16 }
+                        );
+                    }
+
+                    message.textContent =
+                        validLocations.length +
+                        " complaint location(s) displayed on the map.";
+
+                } else {
+
+                    map.setView([cityLatitude, cityLongitude], 12);
+
+                    message.textContent =
+                        "No complaint locations found. Check whether GPS was detected when submitting reports.";
+
+                }
+
+            } catch (error) {
+
+                console.error("Map loading error:", error);
+
+                message.textContent =
+                    "Unable to load complaints. Please check the API and internet connection.";
+
+            }
+
+        }
+
+
+        // Prevent complaint text from being treated as HTML
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, function(char) {
+                return {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                }[char];
+            });
+        }
+
+
+        // Initial map loading
+        loadIssues();
+
+        // Refresh markers every 30 seconds
+        setInterval(loadIssues, 30000);
+
+    </script>
 
 </body>
 </html>
